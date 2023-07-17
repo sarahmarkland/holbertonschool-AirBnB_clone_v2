@@ -25,8 +25,7 @@ def textC(text):
 
 @app.route('/python/<text>', strict_slashes=False)
 def textPython(text='is cool'):
-    new_text = text.replace("_", " ")
-    return ('Python' + new_text)
+    return ('Python ' + text.replace("_", " "))
 
 
 if __name__ == '__main__':
