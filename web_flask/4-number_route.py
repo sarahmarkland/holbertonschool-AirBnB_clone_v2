@@ -33,6 +33,7 @@ def textPython(text='is cool'):
 @app.route('/number/<n>', strict_slashes=False)
 def textPython(n):
     if n is int:
+        """doc"""
         return f"{n} is a number"
 
 
