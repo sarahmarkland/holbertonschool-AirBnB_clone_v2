@@ -57,3 +57,4 @@ dkms.conf
 *.json
 **/__pycache__/
 main*.py
+requirements.txt
