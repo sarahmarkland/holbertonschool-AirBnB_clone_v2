@@ -1,49 +1,57 @@
 #!/usr/bin/python3
-"""
-Write a script that starts a Flask web application:
-
-Your web application must be listening on 0.0.0.0, port 5000
-Routes:
-/: display “Hello HBNB!”
-/hbnb: display “HBNB”
-/c/<text>: display “C ”, followed by the value of the text variable
-    (replace underscore _ symbols with a space )
-/python/<text>: display “Python ”, followed by the value of the text
-    variable (replace underscore _ symbols with a space )
-The default value of text is “is cool”
-/number/<n>: display “n is a number” only if n is an integer
-You must use the option strict_slashes=False in your route definition
-"""
+'''
+start a flask web application
+listening on 0.0.0.0 port 5000
+route / that returns a string
+route /hbnb that returns a string
+route /c/<text> that returns a string with text variable
+route /python/(<text>) that returns a string with text variable
+route /number/<n> that displays "n is a number" only if n is an integer
+'''
 from flask import Flask
 
 app = Flask(__name__)
 
 
 @app.route('/', strict_slashes=False)
-def hello():
+def hello_hbnb():
+    ''' return a string at the root route '''
     return 'Hello HBNB!'
 
 
 @app.route('/hbnb', strict_slashes=False)
 def hbnb():
+    ''' return a string at the /hbnb route '''
     return 'HBNB'
 
 
 @app.route('/c/<text>', strict_slashes=False)
-def textC(text):
-    new_text = text.replace("_", " ")
-    return ('C ' + new_text)
+def c_text(text):
+    '''
+    When a user visits a URL that matches this pattern, Flask captures
+    the value of <text> and passes it as an argument to the c_text function.
+    returns a string that starts with "C " (the letter C followed by a space),
+    and then it appends the modified text value.
+    '''
+    return 'C {}'.format(text.replace('_', ' '))
 
 
-@app.route('/python/', strict_slashes=False)
+@app.route('/python', strict_slashes=False)
 @app.route('/python/<text>', strict_slashes=False)
-def textPython(text='is cool'):
-    return ('Python ' + text.replace("_", " "))
+def python_text(text='is cool'):
+    '''
+    returns a string that starts with "Python " appends the modified text
+    value.
+    '''
+    return 'Python {}'.format(text.replace('_', ' '))
 
 
 @app.route('/number/<int:n>', strict_slashes=False)
 def number(n):
-    return ("{} is a number".format(n))
+    '''
+    returns a string that starts with "n is a number" only if n is an integer
+    '''
+    return '{} is a number'.format(n)
 
 
 if __name__ == '__main__':
