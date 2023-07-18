@@ -25,7 +25,9 @@ def teardown(exception):
 def states_list():
     states = storage.all("State")
     cities = storage.all("City")
-    return render_template('8-states_list.html', states=states.values(), cities=cities.values())
+    return render_template('8-states_list.html', states=states.values(),
+                           cities=cities.values())
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
