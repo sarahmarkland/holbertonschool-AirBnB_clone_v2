@@ -18,11 +18,13 @@ app = Flask(__name__)
 
 @app.teardown_appcontext
 def teardown(exception):
+    """Remove the current SQLAlchemy Session after each request"""
     storage.close()
 
 
 @app.route('/cities_by_states', strict_slashes=False)
 def states_list():
+    """display a HTML page: (inside the tag BODY)"""
     states = storage.all("State")
     return render_template('8-cities_by_state.html', states=states.values())
 
