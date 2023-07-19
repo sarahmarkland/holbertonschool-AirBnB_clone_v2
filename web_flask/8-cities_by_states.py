@@ -17,7 +17,7 @@ app = Flask(__name__)
 
 
 @app.teardown_appcontext
-def teardown(exception):
+def teardown_appcontext(exception):
     """Remove the current SQLAlchemy Session after each request"""
     storage.close()
 
