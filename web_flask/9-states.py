@@ -23,11 +23,13 @@ app = Flask(__name__)
 
 @app.route('/cities_by_states', strict_slashes=False)
 def states_list():
+    """display a HTML page: (inside the tag BODY)"""
     states = storage.all("State")
     return render_template('7-states_list.html', states=states.values())
 
 @app.route('/states/<id>', strict_slashes=False)
 def states_list_id():
+    """display a HTML page: (inside the tag BODY)"""
     state = storage.get(State, id)
     if state:
         cities = sorted(state.cities, key=lambda city: city.name)
@@ -37,6 +39,7 @@ def states_list_id():
 
 @app.teardown_appcontext
 def teardown(exception):
+    """Remove the current SQLAlchemy Session after each request"""
     storage.close()
 
 
