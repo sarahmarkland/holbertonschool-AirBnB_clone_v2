@@ -21,23 +21,23 @@ from models import storage, State
 app = Flask(__name__)
 
 
-@app.teardown_appcontext
-def teardown(exception):
-    storage.close()
-
-
 @app.route('/cities_by_states', strict_slashes=False)
 def states_list():
     states = storage.all("State")
-    return render_template('9-states.html', states=states.values())
+    return render_template('7-states_list.html', states=states.values())
 
 @app.route('/states/<id>', strict_slashes=False)
-def states_list_id(id):
-    states = storage.all("State")
-    for state in states.values():
-        if state.id == id:
-            return render_template('9-states.html', state=state)
-    return render_template('9-states.html', state=None)
+def states_list_id():
+    state = storage.get(State, id)
+    if state:
+        cities = sorted(state.cities, key=lambda city: city.name)
+        return render_template('9-states.html', state=state, cities=cities)
+    else:
+        return render_template('9-states.html', not_found=True)
+
+@app.teardown_appcontext
+def teardown(exception):
+    storage.close()
 
 
 if __name__ == '__main__':
